@@ -1,0 +1,30 @@
+﻿SHYAM STORE - PROJECT NOTES
+
+Project folder:
+C:\Users\hp\Documents\shyam_store
+
+Start the Django server:
+.\venv\Scripts\python.exe manage.py runserver
+
+Check for errors:
+.\venv\Scripts\python.exe manage.py check
+
+Open website:
+http://127.0.0.1:8000/
+
+Track orders:
+http://127.0.0.1:8000/track-order/
+
+Admin:
+http://127.0.0.1:8000/admin/
+
+Completed:
+- Product listing and details
+- Shopping cart and checkout
+- Order confirmation
+- Order tracking
+- Order cancellation
+- Stock restoration during cancellation
+
+Next task:
+Generate downloadable PDF invoices.

@@ -1,0 +1,56 @@
+﻿{% extends "store/base.html" %}
+
+{% block content %}
+<div style="max-width:450px;margin:40px auto;padding:28px;border:1px solid #ddd;border-radius:12px;">
+    <h2 style="text-align:center;color:#166534;">Create Your Account</h2>
+    <p style="text-align:center;">Join Shyam Store today!</p>
+
+    {% if form.errors %}
+        <div style="color:#b91c1c;">
+            Please correct the errors below.
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>
+            <label for="id_username">Username</label><br>
+            <input type="text" name="username" id="id_username"
+                   required autocomplete="username"
+                   style="width:100%;padding:10px;box-sizing:border-box;">
+        </p>
+
+        <p>
+            <label for="id_email">Email</label><br>
+            <input type="email" name="email" id="id_email"
+                   required autocomplete="email"
+                   style="width:100%;padding:10px;box-sizing:border-box;">
+        </p>
+
+        <p>
+            <label for="id_password1">Password</label><br>
+            <input type="password" name="password1" id="id_password1"
+                   required autocomplete="new-password"
+                   style="width:100%;padding:10px;box-sizing:border-box;">
+        </p>
+
+        <p>
+            <label for="id_password2">Confirm Password</label><br>
+            <input type="password" name="password2" id="id_password2"
+                   required autocomplete="new-password"
+                   style="width:100%;padding:10px;box-sizing:border-box;">
+        </p>
+
+        <button type="submit"
+                style="width:100%;padding:12px;background:#166534;color:white;border:0;border-radius:6px;cursor:pointer;">
+            Create Account
+        </button>
+    </form>
+
+    <p style="text-align:center;margin-top:18px;">
+        Already registered? <a href="{% url 'login' %}">Login here</a>
+    </p>
+</div>
+{% endblock %}

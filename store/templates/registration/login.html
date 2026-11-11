@@ -1,0 +1,33 @@
+﻿{% extends "store/base.html" %}
+
+{% block content %}
+<div style="max-width:420px;margin:40px auto;padding:28px;border:1px solid #ddd;border-radius:12px;">
+    <h2 style="text-align:center;color:#166534;">Login to Shyam Store</h2>
+
+    {% if form.errors %}
+        <p style="color:red;">Invalid username or password. Please try again.</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="id_username">Username</label><br>
+            <input type="text" name="username" id="id_username" required
+                   autocomplete="username" style="width:100%;padding:10px;box-sizing:border-box;">
+        </p>
+        <p>
+            <label for="id_password">Password</label><br>
+            <input type="password" name="password" id="id_password" required
+                   autocomplete="current-password" style="width:100%;padding:10px;box-sizing:border-box;">
+        </p>
+        <button type="submit" style="width:100%;padding:12px;background:#166534;color:white;border:0;border-radius:6px;cursor:pointer;">
+            Login
+        </button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+    <p style="text-align:center;margin-top:18px;">
+        Don't have an account? <a href="{% url 'register' %}">Register here</a>
+    </p>
+</div>
+{% endblock %}

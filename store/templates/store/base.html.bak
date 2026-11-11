@@ -1,0 +1,333 @@
+﻿<```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Shyam Store | Electronics{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --green: #176b45;
+            --dark: #10452f;
+            --light: #eaf6ef;
+            --text: #202b25;
+            --muted: #6b766f;
+            --bg: #f7f9f7;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        .top-strip {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+        }
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #e7ece8;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: var(--green);
+        }
+        .logo span { color: var(--text); }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 13px;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+        .nav-links a:hover { color: var(--green); }
+        .nav-button, .btn {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            padding: 9px 13px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .nav-button:hover, .btn:hover {
+            background: var(--dark);
+            color: white;
+        }
+        .page-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 30px 24px 55px;
+            min-height: 65vh;
+        }
+        .hero {
+            background: linear-gradient(120deg, #e5f5e9, #f4f8df);
+            border-radius: 22px;
+            padding: 55px 42px;
+            margin-bottom: 40px;
+        }
+        .hero-label {
+            display: inline-block;
+            background: white;
+            color: var(--green);
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .hero h1 {
+            font-size: clamp(30px, 4vw, 48px);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        .hero h1 span { color: var(--green); }
+        .hero p {
+            color: #526359;
+            font-size: 14px;
+            max-width: 500px;
+            margin-bottom: 24px;
+        }
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+        .section-heading h2 { font-size: 26px; }
+        .section-heading p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: white;
+            border: 1px solid #e7ece8;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: .25s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px #143c2315;
+        }
+        .product-image {
+            width: 100%;
+            height: 210px;
+            object-fit: contain;
+            display: block;
+            padding: 16px;
+            background: #f3f6f3;
+        }
+        .product-info { padding: 16px; }
+        .product-category {
+            display: inline-block;
+            color: var(--green);
+            background: var(--light);
+            border-radius: 5px;
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .product-name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .product-description {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+        .product-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .product-price {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .small-btn {
+            background: var(--green);
+            color: white;
+            padding: 8px 10px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .small-btn:hover { background: var(--dark); }
+        .empty-state {
+            background: white;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 16px;
+            border: 1px solid #e7ece8;
+        }
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 40px 0 10px;
+        }
+        .benefit {
+            background: white;
+            border: 1px solid #e7ece8;
+            border-radius: 13px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .benefit-icon { font-size: 25px; }
+        .benefit h3 { font-size: 13px; }
+        .benefit p { color: var(--muted); font-size: 11px; }
+        .footer {
+            background: #102d21;
+            color: white;
+            padding: 32px 24px;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+        .footer p { color: #c6d5cb; font-size: 12px; }
+        .footer strong { font-size: 18px; }
+
+        .messages { margin-bottom: 20px; }
+        .message {
+            padding: 12px 16px;
+            background: var(--light);
+            border: 1px solid #c8e6d2;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        @media(max-width: 1000px) {
+            .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        @media(max-width: 700px) {
+            .nav-container { flex-wrap: wrap; padding: 14px 16px; }
+            .logo { font-size: 22px; }
+            .nav-links {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 10px;
+                font-size: 11px;
+            }
+            .nav-button { padding: 7px 9px; }
+            .page-container { padding: 20px 14px 40px; }
+            .hero { padding: 34px 22px; border-radius: 16px; }
+            .hero p { font-size: 13px; }
+            .section-heading h2 { font-size: 22px; }
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+            .product-image { height: 155px; padding: 10px; }
+            .product-info { padding: 11px; }
+            .product-name { font-size: 13px; }
+            .product-price { font-size: 14px; }
+            .small-btn { padding: 7px; font-size: 10px; }
+            .benefits { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; align-items: flex-start; }
+        }
+        @media(max-width: 360px) {
+            .product-grid { grid-template-columns: 1fr; }
+            .product-image { height: 210px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-strip">
+        ✨ Welcome to Shyam Store — Your Everyday Electronics Destination
+    </div>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'product_list' %}" class="logo">
+                Shyam<span>Store.</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="{% url 'product_list' %}">🏠 Home</a>
+                <a href="{% url 'product_list' %}#products">🛍️ Products</a>
+                <a href="{% url 'cart_view' %}">🛒 Cart</a>
+                <a href="{% url 'track_order' %}">📦 Track Order</a>
+
+                {% if user.is_authenticated %}
+                    <span>Hi, {{ user.username }}!</span>
+
+                    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-button" style="border:0;cursor:pointer;font-family:inherit;">
+                            Logout
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}" class="nav-button">Register</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-container">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <strong>Shyam Store.</strong>
+                <p>Your Everyday Electronics Destination.</p>
+            </div>
+            <p>© 2026 Shyam Store. Built with Django.</p>
+        </div>
+    </footer>
+</body>
+</html>
+```

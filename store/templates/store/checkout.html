@@ -1,0 +1,58 @@
+﻿{% extends "store/base.html" %}
+
+{% block title %}Checkout | Shyam Store{% endblock %}
+
+{% block content %}
+<div style="max-width:850px;margin:20px auto;">
+    <h1 style="margin-bottom:8px;">🛒 Checkout</h1>
+    <p style="color:#6b766f;margin-bottom:25px;">Enter your delivery details to place your order.</p>
+
+    {% if error %}
+        <p style="background:#fff0ef;color:#b42318;padding:12px;border-radius:8px;">{{ error }}</p>
+    {% endif %}
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:22px;">
+        <section style="background:white;border:1px solid #e7ece8;border-radius:15px;padding:22px;">
+            <h2 style="margin-bottom:20px;">Delivery Information</h2>
+
+            <form method="post" action="{% url 'checkout' %}">
+                {% csrf_token %}
+
+                <label for="customer_name">Full Name</label>
+                <input id="customer_name" name="customer_name" type="text" maxlength="200" value="{{ request.POST.customer_name }}" required style="width:100%;padding:11px;margin:7px 0 16px;box-sizing:border-box;">
+
+                <label for="email">Email Address</label>
+                <input id="email" name="email" type="email" maxlength="254" value="{{ request.POST.email }}" required style="width:100%;padding:11px;margin:7px 0 16px;box-sizing:border-box;">
+
+                <label for="phone">Phone Number</label>
+                <input id="phone" name="phone" type="tel" maxlength="20" value="{{ request.POST.phone }}" required style="width:100%;padding:11px;margin:7px 0 16px;box-sizing:border-box;">
+
+                <label for="address">Delivery Address</label>
+                <textarea id="address" name="address" rows="4" maxlength="2000" required style="width:100%;padding:11px;margin:7px 0 18px;box-sizing:border-box;">{{ request.POST.address }}</textarea>
+
+                <button type="submit" class="btn" style="width:100%;border:0;cursor:pointer;">Place Order →</button>
+            </form>
+        </section>
+
+        <section style="background:white;border:1px solid #e7ece8;border-radius:15px;padding:22px;">
+            <h2 style="margin-bottom:15px;">Your Order</h2>
+
+            {% for item in cart_items %}
+            <div style="display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #eee;">
+                <span>{{ item.product.name }} × {{ item.quantity }}</span>
+                <strong>₹{{ item.subtotal|floatformat:2 }}</strong>
+            </div>
+            {% empty %}
+            <p>Your cart is empty.</p>
+            {% endfor %}
+
+            <div style="display:flex;justify-content:space-between;margin-top:20px;font-size:19px;font-weight:bold;">
+                <span>Total</span>
+                <span>₹{{ total|floatformat:2 }}</span>
+            </div>
+
+            <p style="color:#6b766f;font-size:12px;margin-top:15px;">Demo checkout only. No online payment is processed.</p>
+        </section>
+    </div>
+</div>
+{% endblock %}

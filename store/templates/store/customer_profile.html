@@ -1,0 +1,29 @@
+﻿{% extends "store/base.html" %}
+
+{% block content %}
+<div class="container" style="max-width: 750px; margin: 40px auto; padding: 25px;">
+    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 18px rgba(0,0,0,0.08);">
+        <h1 style="color: #176b45; margin-bottom: 10px;">My Profile</h1>
+        <p style="color: #666;">Welcome to your Shyam Store account!</p>
+
+        <hr>
+
+        <p><strong>Username:</strong> {{ customer.username }}</p>
+        <p><strong>Email:</strong>
+            {% if customer.email %}
+                {{ customer.email }}
+            {% else %}
+                Not provided
+            {% endif %}
+        </p>
+        <p><strong>First name:</strong> {{ customer.first_name|default:"Not provided" }}</p>
+        <p><strong>Last name:</strong> {{ customer.last_name|default:"Not provided" }}</p>
+        <p><strong>Member since:</strong> {{ customer.date_joined|date:"d M Y" }}</p>
+
+        <a href="{% url 'product_list' %}"
+           style="display: inline-block; margin-top: 20px; background: #176b45; color: white; padding: 12px 22px; border-radius: 8px; text-decoration: none;">
+            Continue Shopping
+        </a>
+    </div>
+</div>
+{% endblock %}

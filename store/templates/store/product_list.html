@@ -1,0 +1,84 @@
+﻿{% extends "store/base.html" %}
+
+{% block title %}Shyam Store | Shop Electronics{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <span class="hero-label">WELCOME TO SHYAM STORE</span>
+    <h1>Upgrade Your World with <span>Smart Electronics.</span></h1>
+    <p>Discover electronics for your everyday life. Find your favourite gadgets at Shyam Store.</p>
+    <a href="#products" class="btn">Explore Products →</a>
+</section>
+
+<section id="products">
+    <div class="section-heading">
+        <div>
+            <h2>Explore Our Products</h2>
+            <p>Find the right gadget for you.</p>
+        </div>
+        <a href="{% url 'cart_view' %}" class="btn">🛒 View Cart</a>
+    </div>
+
+    {% if products %}
+    <div class="product-grid">
+        {% for product in products %}
+        <article class="product-card">
+
+            {% if product.image_url %}
+                <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image">
+            {% else %}
+                <div class="product-image" style="display:flex;align-items:center;justify-content:center;font-size:65px;">🛍️</div>
+            {% endif %}
+
+            <div class="product-info">
+                <span class="product-category">{{ product.category|default:"Electronics" }}</span>
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-description">{{ product.description|truncatewords:12 }}</p>
+
+                <div class="product-bottom">
+                    <span class="product-price">₹{{ product.price|floatformat:2 }}</span>
+                    <a href="{% url 'product_detail' product.id %}" class="small-btn">Details</a>
+                </div>
+
+                {% if product.stock > 0 %}
+                    <p style="color:#176b45;font-size:11px;margin:10px 0;">✓ In Stock</p>
+                    <form method="post" action="{% url 'add_to_cart' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn" style="width:100%;border:none;cursor:pointer;font-family:inherit;">
+                            🛒 Add to Cart
+                        </button>
+                    </form>
+                {% else %}
+                    <p style="color:#c0392b;font-size:12px;margin-top:10px;">Currently Out of Stock</p>
+                    <button class="btn" disabled style="width:100%;opacity:0.5;cursor:not-allowed;">Unavailable</button>
+                {% endif %}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h2>No products available yet</h2>
+        <p>Add products using the Django admin panel.</p>
+        <a href="{% url 'admin:index' %}" class="btn">Open Admin Panel</a>
+    </div>
+    {% endif %}
+</section>
+
+<section id="benefits" class="benefits">
+    <div class="benefit">
+        <span class="benefit-icon">🚚</span>
+        <div><h3>Convenient Shopping</h3><p>Explore products in one place.</p></div>
+    </div>
+    <div class="benefit">
+        <span class="benefit-icon">🔒</span>
+        <div><h3>Simple & Secure</h3><p>Built with Django and SQLite.</p></div>
+    </div>
+    <div class="benefit">
+        <span class="benefit-icon">🎧</span>
+        <div><h3>Discover Gadgets</h3><p>Find electronics for your needs.</p></div>
+    </div>
+</section>
+
+{% endblock %}

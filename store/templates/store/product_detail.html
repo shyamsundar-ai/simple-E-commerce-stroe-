@@ -1,0 +1,74 @@
+﻿{% extends "store/base.html" %}
+
+{% block title %}{{ product.name }} | Shyam Store{% endblock %}
+
+{% block content %}
+
+<div style="margin-bottom:25px;">
+    <a href="{% url 'product_list' %}"
+       style="color:#123d2a; text-decoration:none; font-weight:bold;">
+        ← Back to Products
+    </a>
+</div>
+
+<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:35px; background:white; padding:30px; border-radius:14px; box-shadow:0 3px 12px rgba(0,0,0,0.08);">
+
+    <div style="display:flex; align-items:center; justify-content:center; background:#f5f7f4; border-radius:10px; min-height:300px; padding:20px;">
+
+        {% if product.image_url %}
+            <img src="{{ product.image_url }}"
+                 alt="{{ product.name }}"
+                 style="width:100%; max-height:350px; object-fit:contain;">
+        {% else %}
+            <span style="font-size:100px;">🛍️</span>
+        {% endif %}
+
+    </div>
+
+    <div style="padding:10px 0;">
+
+        <p style="color:#777; margin-bottom:12px;">
+            Category: {{ product.category }}
+        </p>
+
+        <h1 style="color:#123d2a; font-size:32px;">
+            {{ product.name }}
+        </h1>
+
+        <h2 style="color:#123d2a; font-size:28px; margin-top:20px;">
+            ₹{{ product.price }}
+        </h2>
+
+        <div style="margin-top:18px;">
+            {% if product.stock > 0 %}
+                <p style="color:green; font-weight:bold;">
+                    ✓ In Stock ({{ product.stock }} available)
+                </p>
+            {% else %}
+                <p style="color:red; font-weight:bold;">
+                    ✗ Out of Stock
+                </p>
+            {% endif %}
+        </div>
+
+        <h3 style="margin-top:25px;">Product Description</h3>
+
+        <p style="margin-top:10px; line-height:1.8; color:#555; white-space:pre-line;">
+            {{ product.description|default:"No description available." }}
+        </p>
+
+        {% if product.stock > 0 %}
+            <p style="margin-top:22px; color:#123d2a;">
+                Available to order!
+            </p>
+        {% endif %}
+
+        <a href="{% url 'product_list' %}" class="btn">
+            Continue Shopping
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

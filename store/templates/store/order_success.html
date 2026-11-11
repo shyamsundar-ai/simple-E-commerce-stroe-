@@ -1,0 +1,31 @@
+﻿{% extends "store/base.html" %}
+
+{% block title %}Order Confirmed | Shyam Store{% endblock %}
+
+{% block content %}
+<div style="max-width:650px;margin:35px auto;background:white;border:1px solid #e7ece8;border-radius:20px;padding:40px 25px;text-align:center;">
+    <div style="font-size:70px;">✅</div>
+
+    <h1 style="color:#176b45;margin:15px 0;">Order Placed Successfully!</h1>
+
+    <p style="color:#6b766f;margin-bottom:25px;">
+        Thank you for shopping with Shyam Store. Your order has been saved.
+    </p>
+
+    <div style="background:#eaf6ef;border-radius:12px;padding:20px;text-align:left;margin-bottom:25px;">
+        <p><strong>Order Number:</strong> #{{ order.id }}</p>
+        <p style="margin-top:10px;"><strong>Customer:</strong> {{ order.customer_name }}</p>
+        <p style="margin-top:10px;"><strong>Total Amount:</strong> ₹{{ order.total_amount|floatformat:2 }}</p>
+        <p style="margin-top:10px;"><strong>Order Status:</strong> {{ order.status }}</p>
+        <p style="margin-top:10px;"><strong>Delivery Address:</strong> {{ order.address }}</p>
+    </div>
+
+    <a href="{% url 'product_list' %}" class="btn">Continue Shopping →</a>
+</div>
+{% endblock %}
+<form method="post"
+      action="{% url 'download_invoice' order.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="email" value="{{ order.email }}">
+    <button type="submit">Download PDF Invoice</button>
+</form>
